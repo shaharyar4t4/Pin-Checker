@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:pinchecker/views/list.dart';
+import 'package:pinchecker/views/scan_card_view.dart';
+import 'package:pinchecker/views/show_pin_view.dart';
+import 'package:provider/provider.dart';
+import 'controllers/card_controller.dart';
+import 'views/add_card_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CardController(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pin Checker',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: ViewList(),
     );
   }
 }
