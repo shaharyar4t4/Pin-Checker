@@ -34,10 +34,10 @@ class _ShowPinViewState extends State<ShowPinView> {
 
     if (card == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text("Result")),
-        body: const Center(
-          child: Text("No matching card found."),
+        appBar: AppBar(title: const Text("Result"),
+        centerTitle: true,
         ),
+        body: const Center(child: Text("No matching card found.")),
       );
     }
 
@@ -49,15 +49,9 @@ class _ShowPinViewState extends State<ShowPinView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              card.bank,
-              style: const TextStyle(fontSize: 20),
-            ),
+            Text(card.bank, style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 16),
-            Text(
-              "**** ${card.last4}",
-              style: const TextStyle(fontSize: 18),
-            ),
+            Text("**** ${card.last4}", style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 24),
             Text(
               _showPin ? pin : "••••",
@@ -69,24 +63,17 @@ class _ShowPinViewState extends State<ShowPinView> {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-  onPressed: () async {
-    final success = await BiometricAuth.authenticate(
-      reason: 'Authenticate to view your PIN',
-    );
+              onPressed: () async {
+                final success = await BiometricAuth.authenticate(
+                  reason: 'Authenticate to view your PIN',
+                );
 
-    if (success) {
-      setState(() => _showPin = true);
-    }
-  },
-  child: const Text("Reveal PIN"),
-)
-
-            // ElevatedButton(
-            //   onPressed: () {
-            //     setState(() => _showPin = true);
-            //   },
-            //   child: const Text("Reveal PIN"),
-            // )
+                if (success) {
+                  setState(() => _showPin = true);
+                }
+              },
+              child: const Text("Reveal PIN"),
+            ),
           ],
         ),
       ),

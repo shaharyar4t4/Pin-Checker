@@ -12,44 +12,45 @@ class AddCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Add Card")),
+      
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Add Card")),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            TextField(controller: bankCtrl, decoration: InputDecoration(labelText: "Bank")),
-            TextField(controller: last4Ctrl, decoration: InputDecoration(labelText: "Last 4 digits")),
-            TextField(controller: pinCtrl, decoration: InputDecoration(labelText: "PIN")),
+            TextField(
+              controller: bankCtrl,
+              decoration: InputDecoration(labelText: "Bank"),
+            ),
+            TextField(
+              controller: last4Ctrl,
+              decoration: InputDecoration(labelText: "Last 4 digits"),
+            ),
+            TextField(
+              controller: pinCtrl,
+              decoration: InputDecoration(labelText: "PIN"),
+            ),
             ElevatedButton(
-  onPressed: () async {
-    print("🟢 SAVE BUTTON CLICKED");
+              onPressed: () async {
+                print("--->> SAVE BUTTON CLICKED");
 
-    final encrypted =
-        EncryptionService.encryptPin(pinCtrl.text);
+                final encrypted = EncryptionService.encryptPin(pinCtrl.text);
 
-    final card = CardModel(
-      bank: bankCtrl.text,
-      last4: last4Ctrl.text,
-      encryptedPin: encrypted,
-    );
+                final card = CardModel(
+                  bank: bankCtrl.text,
+                  last4: last4Ctrl.text,
+                  encryptedPin: encrypted,
+                );
 
-    await context.read<CardController>().saveCard(card);
-  },
-  child: const Text("Save"),
-)
+                await context.read<CardController>().saveCard(card);
 
-            // ElevatedButton(
-            //   onPressed: () {
-            //     final encrypted = EncryptionService.encryptPin(pinCtrl.text);
-            //     final card = CardModel(
-            //       bank: bankCtrl.text,
-            //       last4: last4Ctrl.text,
-            //       encryptedPin: encrypted,
-            //     );
-            //     context.read<CardController>().saveCard(card);
-            //   },
-            //   child: Text("Save"),
-            // )
+                // ignore: use_build_context_synchronously
+                Navigator.pop(context);
+              },
+              child: const Text("Save"),
+            ),
           ],
         ),
       ),

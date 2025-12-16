@@ -33,8 +33,7 @@ class CardRepository {
     final database = await db.database;
     await database.insert('cards', card.toMap());
 
-    // 🔍 DEBUG
-    print("✅ CARD SAVED:");
+    print("-->> CARD SAVED:");
     print(card.toMap());
   }
 
@@ -46,7 +45,7 @@ class CardRepository {
       whereArgs: [last4],
     );
 
-    print("🔎 SEARCH last4=$last4 → $result");
+    print("--->> SEARCH last4=$last4 → $result");
 
     if (result.isNotEmpty) {
       return CardModel.fromMap(result.first);
@@ -54,12 +53,20 @@ class CardRepository {
     return null;
   }
 
-  // 🧪 DEBUG helper
+  
   Future<void> debugPrintAllCards() async {
     final database = await db.database;
     final result = await database.query('cards');
 
-    print("📦 ALL SAVED CARDS:");
+    print("--->> ALL SAVED CARDS:");
     print(result);
   }
+
+  Future<List<CardModel>> getAllCards() async {
+  final database = await db.database;
+  final result = await database.query('cards');
+
+  return result.map((e) => CardModel.fromMap(e)).toList();
+}
+
 }

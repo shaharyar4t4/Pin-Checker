@@ -56,8 +56,8 @@ class _ScanCardViewState extends State<ScanCardView> {
     final fullText = recognizedText.text;
     final last4 = _extractLast4FromCard(fullText);
 
-    print("📸 FULL OCR TEXT:\n$fullText");
-    print("📸 SCANNED CARD last4 = $last4");
+    print("-->> FULL OCR TEXT:\n$fullText");
+    print("-->> SCANNED CARD last4 = $last4");
 
     if (last4 == null) {
       _showMessage("Card number not detected. Please try again.");
@@ -82,7 +82,9 @@ class _ScanCardViewState extends State<ScanCardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Scan Card")),
+      appBar: AppBar(title: const Text("Scan Card"),
+      centerTitle: true,
+      ),
       body: Center(
         child: _isScanning
             ? const CircularProgressIndicator()

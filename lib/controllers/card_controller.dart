@@ -5,6 +5,7 @@ import '../models/card_model.dart';
 class CardController extends ChangeNotifier {
   final CardRepository _repo = CardRepository();
   CardModel? matchedCard;
+  List<CardModel> allCards = [];
 
   Future<void> saveCard(CardModel card) async {
     print("➡️ saveCard() called");
@@ -17,5 +18,10 @@ class CardController extends ChangeNotifier {
     matchedCard = await _repo.getCardByLast4(last4);
     notifyListeners();
   }
-}
 
+  Future<void> loadAllCards() async {
+  allCards = await _repo.getAllCards();
+  notifyListeners();
+
+}
+}

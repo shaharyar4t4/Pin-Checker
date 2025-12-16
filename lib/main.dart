@@ -20,6 +20,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        primaryColor: Colors.teal,
+          textTheme: TextTheme(
+          bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
+          bodyMedium: TextStyle(fontSize: 14, color: Colors.black54),
+          titleLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
       home: ViewList(),
     );
   }
